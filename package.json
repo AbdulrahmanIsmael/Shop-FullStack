@@ -1,0 +1,12 @@
+{
+  "name": "shop-backend",
+  "version": "1.0.0",
+  "description": "Backend Application for an Online Shop built with Node.js and Express",
+  "license": "ISC",
+  "author": "Abdulrahman Ismael",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
