@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include("./includes/metadata.ejs") %>
+    <%- include("../includes/metadata.ejs") %>
     <link rel="stylesheet" href="/css/products.css" />
   </head>
   <body>
-    <%- include("./includes/header.ejs") %>
+    <%- include("../includes/header.ejs") %>
 
     <div class="products-header">
       <div class="container">
@@ -20,11 +20,23 @@
           <div class="products-grid">
             <% for( let product of products ) { %>
               <div class="product-card">
+                <% if(product.productImage) { %>
+                  <img src="<%=product.productImage%>" alt="<%= product.productName %> image" class="product-card__image"/>
+                <% } else { %>
                 <div class="product-card__image">
                   📱
                 </div>
+                <% } %>
+                  <!-- Add To Cart Button -->
+                 <!-- ! Change type button to submit later when adding the cart feature -->
+                <form action="/cart" method="POST" class="add-to-cart-btn">
+                  <button type="submit" aria-label="Add to Cart">🛒</button>
+                  <input type="hidden" name="productId" value="<%= product.productId %>">
+                </form>
+
                 <div class="product-card__content">
                   <h3 class="product-card__name"><%= product.productName %></h3>
+                  <p class="product-card__desc"><%= product.productDesc %></p>
                   
                   <div class="product-details">
                     <div class="product-detail-row">
@@ -34,16 +46,13 @@
                     <div class="product-detail-row">
                       <span class="product-detail-label">In Stock</span>
                       <span class="product-quantity">
-                        <span class="quantity-badge <%= product.productQuantity > 20 ? 'in-stock' : product.productQuantity > 5 ? 'low-stock' : 'out-of-stock' %>">
-                          <%= product.productQuantity %> units
+                        <span class="badge <%= product.productQuantity > 20 ? 'in-stock' : product.productQuantity > 5 ? 'low-stock' : 'out-of-stock' %>">
+                          <span class="status-dot"></span> <%= product.productQuantity %> units
                         </span>
                       </span>
                     </div>
-                  </div>
 
-                  <div class="product-card__actions">
-                    <button class="product-card__edit" onclick="alert('Edit functionality coming soon!')">Edit</button>
-                    <button class="product-card__delete" onclick="alert('Delete functionality coming soon!')">Delete</button>
+                    <a href="/" class="product-details-btn">Details</a>
                   </div>
                 </div>
               </div>
@@ -53,11 +62,10 @@
           <div class="empty-state">
             <div class="empty-state__icon">📦</div>
             <h2 class="empty-state__title">No Products Found</h2>
-            <p class="empty-state__message">Start by adding your first product to the store</p>
-            <a href="/admin/add-product" class="btn btn-primary empty-state__action">Add First Product</a>
           </div>
         <% } %>
       </div>
     </main>
+    <%- include("../includes/footer.ejs") %>
   </body>
 </html>

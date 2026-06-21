@@ -1,0 +1,107 @@
+<footer class="main-footer">
+  <div class="main-footer__content">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Section -->
+        <div class="footer-section">
+          <div class="footer-logo">
+            <a href="/" class="logo-link"> <%- include("./logo.ejs") %> </a>
+          </div>
+          <p class="footer-section__description">
+            Your trusted online marketplace for quality products. Shop with
+            confidence, guaranteed satisfaction on every purchase.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social-link" aria-label="Facebook">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+              </svg>
+            </a>
+            <a href="#" class="footer-social-link" aria-label="Twitter">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M23.953 4.57a10 10 0 002.856-9.4a6.006 6.006 0 01-1.685.494 2.999 2.999 0 001.314-1.656 5.999 5.999 0 01-1.902.743 2.993 2.993 0 00-5.193 2.73A8.487 8.487 0 011.67 4.15a2.993 2.993 0 00.928 3.998 2.988 2.988 0 01-1.359-.221v.039a3.002 3.002 0 002.403 2.941 2.99 2.99 0 01-1.356.052 3.003 3.003 0 002.797 2.082A6.02 6.02 0 010 14.508a8.488 8.488 0 004.604 1.348c5.504 0 8.512-4.556 8.512-8.509 0-.13-.003-.26-.008-.39a6.04 6.04 0 001.482-1.54z"
+                />
+              </svg>
+            </a>
+            <a href="#" class="footer-social-link" aria-label="Instagram">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m4.441 15.892c-1.124 1.124-2.621 1.744-4.209 1.744H9.768c-1.588 0-3.085-.62-4.209-1.744-1.124-1.124-1.744-2.621-1.744-4.209V9.768c0-1.588.62-3.085 1.744-4.209 1.124-1.124 2.621-1.744 4.209-1.744h2.464c1.588 0 3.085.62 4.209 1.744 1.124 1.124 1.744 2.621 1.744 4.209v2.464c0 1.588-.62 3.085-1.744 4.209m-6.65-11.034c-.971 0-1.88.39-2.553 1.063s-1.063 1.582-1.063 2.553v2.464c0 .971.39 1.88 1.063 2.553.673.673 1.582 1.063 2.553 1.063h2.464c.971 0 1.88-.39 2.553-1.063.673-.673 1.063-1.582 1.063-2.553V9.768c0-.971-.39-1.88-1.063-2.553-.673-.673-1.582-1.063-2.553-1.063H9.768z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h4 class="footer-section__subtitle">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/" class="footer-link">Home</a></li>
+            <li><a href="/products" class="footer-link">Products</a></li>
+            <li><a href="/cart" class="footer-link">Shopping Cart</a></li>
+            <li>
+              <a href="/admin/products" class="footer-link">Admin Panel</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="footer-section">
+          <h4 class="footer-section__subtitle">Support</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Contact Us</a></li>
+            <li><a href="#" class="footer-link">FAQs</a></li>
+            <li><a href="#" class="footer-link">Shipping Info</a></li>
+            <li><a href="#" class="footer-link">Returns</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Info -->
+        <div class="footer-section">
+          <h4 class="footer-section__subtitle">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">About Us</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+            <li><a href="#" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="main-footer__bottom">
+    <div class="container">
+      <div class="footer-bottom-content">
+        <p class="footer-copyright">
+          &copy; <%= new Date().getFullYear() %> ShopHub. All rights reserved.
+        </p>
+        <div class="footer-payment-methods">
+          <span class="payment-badge">💳</span>
+          <span class="payment-badge">🏦</span>
+          <span class="payment-badge">📱</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

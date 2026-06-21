@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../includes/metadata.ejs") %>
+    <link rel="stylesheet" href="/css/add-product.css" />
+  </head>
+  <body>
+    <%- include("../includes/header.ejs") %>
+
+    <div class="add-product-header">
+      <div class="container">
+        <h1 class="add-product-header__title"><%= editing ? 'Edit Product' : 'Add New Product' %></h1>
+        <p class="add-product-header__subtitle"><%= editing ? 'Update the details of your product' : 'Fill in the details to add a new product to your store' %></p>
+      </div>
+    </div>
+
+    <main class="content-wrapper">
+      <div class="add-product-container">
+        <form
+          action="/admin/<%= editing && product ? 'edit-product' : 'add-product' %>"
+          method="POST"
+          class="product-form"
+        >
+          <div class="form-group">
+            <label for="product-name" class="form-label form-label-required"
+              >Product Name</label
+            >
+            <input
+              type="text"
+              name="productName"
+              id="product-name"
+              class="form-input"
+              placeholder="e.g., Dell Latitude 3350"
+              required
+              value="<%= editing && product && product.productName ? product.productName : ''  %>"
+            />
+            <small class="form-help-text"
+              >Enter a descriptive name for your product</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="product-quantity" class="form-label form-label-required"
+              >Quantity in Stock</label
+            >
+            <div class="input-group">
+              <span class="input-group-addon">📦</span>
+              <input
+                type="number"
+                name="productQuantity"
+                id="product-quantity"
+                class="form-input"
+                placeholder="100"
+                min="0"
+                required
+                value="<%= editing && product && product.productQuantity ? product.productQuantity : ''  %>"
+              />
+            </div>
+            <small class="form-help-text"
+              >How many units do you have available?</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="product-price" class="form-label form-label-required"
+              >Product Price</label
+            >
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input
+                type="number"
+                min="0"
+                max="1000000"
+                step="0.01"
+                name="productPrice"
+                id="product-price"
+                class="form-input"
+                placeholder="150.00"
+                required
+                value="<%= editing && product && product.productPrice ? product.productPrice : ''  %>"
+              />
+            </div>
+            <small class="form-help-text"
+              >Set the selling price for this product</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="product-image" class="form-label form-label-required"
+              >Product Image URL</label
+            >
+            <div class="input-group">
+              <span class="input-group-addon">🖼️</span>
+              <input
+                type="url"
+                name="productImage"
+                id="product-image"
+                class="form-input"
+                required
+                value="<%= editing && product && product.productImage ? product.productImage : ''  %>"
+              />
+            </div>
+            <% if(product && product.productImage) { %>
+              <img src="<%= editing && product && product.productImage ? product.productImage : "" %>" alt="<%= editing && product && product.productName ? product.productName : "" %> image">
+            <% } %>
+          </div>
+
+          <div class="form-group">
+            <label for="product-image" class="form-label form-label-required"
+              >Product Description</label
+            >
+            <div class="input-group">
+              <textarea
+                name="productDesc"
+                id="product-desc"
+                class="form-textarea"
+                placeholder="Write some description for the product"
+                required
+              ><%= editing && product && product.productDesc ? product.productDesc : ''  %></textarea>
+            </div>
+          </div>
+
+          <% if (editing && product && product.productId) { %>
+            <input type="hidden" name="productId" value="<%= product.productId %>">
+          <% } %>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <%= editing ? '' : "➕" %> <%= editing ? 'Update' : "Add" %>
+              Product
+            </button>
+            <a href="/admin/products" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include("../includes/footer.ejs") %>
+  </body>
+</html>

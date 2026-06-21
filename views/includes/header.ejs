@@ -1,13 +1,28 @@
 <header class="main-header">
   <nav class="main-header__navbar">
+    <div class="main-header__logo">
+      <a href="/" class="logo-link"> <%- include("./logo.ejs") %> </a>
+    </div>
     <ul>
       <li class="main-header__navItems">
-        <a href="/products" class="main-header__navLink">📦 Products</a>
+        <a href="/" class="main-header__navLink">Shop</a>
+      </li>
+      <li class="main-header__navItems">
+        <a href="/products" class="main-header__navLink">Products</a>
+      </li>
+      <li class="main-header__navItems">
+        <a href="/cart" class="main-header__navLink">Cart</a>
+      </li>
+      <li class="main-header__navItems">
+        <a href="/orders" class="main-header__navLink">Orders</a>
       </li>
       <li class="main-header__navItems">
         <a href="/admin/add-product" class="main-header__navLink"
-          >➕ Add Product</a
+          >Add Product</a
         >
+      </li>
+      <li class="main-header__navItems">
+        <a href="/admin/products" class="main-header__navLink">Admin Product</a>
       </li>
     </ul>
   </nav>

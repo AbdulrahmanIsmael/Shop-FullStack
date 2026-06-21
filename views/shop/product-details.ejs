@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../includes/metadata.ejs") %>
+    <link rel="stylesheet" href="/css/product-details.css" />
+  </head>
+  <body>
+    <%- include("../includes/header.ejs") %>
+
+    <main class="content-wrapper product-page">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+          <a href="/" class="breadcrumb__link">Home</a>
+          <span class="breadcrumb__separator">/</span>
+          <span class="breadcrumb__current"><%= product.productName %></span>
+        </nav>
+
+        <article class="product-details__container">
+          <div class="product-details__image-wrapper">
+            <% if(product.productImage) { %>
+              <img
+                src="<%= product.productImage %>"
+                alt="<%= product.productName %>"
+                class="product-details__image"
+              />
+            <% } else { %>
+              <div class="placeholder-img">📱</div>
+            <% } %>
+          </div>
+
+          <div class="product-details__info">
+            <h1 class="product-details__name"><%= product.productName %></h1>
+            
+            <div class="product-details__meta">
+              <div class="product-details__price">
+                $<%= product.productPrice %>
+              </div>
+              <div class="product-details__stock">
+                <% if(product.productQuantity > 0) { %>
+                  <span class="badge in-stock">
+                    <span class="status-dot"></span> <%= product.productQuantity %> in stock
+                  </span>
+                <% } else { %>
+                  <span class="badge out-of-stock">
+                    <span class="status-dot"></span> Out of stock
+                  </span>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="product-details__desc-wrapper">
+              <h3 class="product-details__desc-title">Description</h3>
+              <p class="product-details__desc"><%= product.productDesc %></p>
+            </div>
+
+            <div class="product-details__actions">
+              <form action="/cart" method="POST" class="add-to-cart-form">
+                <input type="hidden" name="productId" value="<%= product.productId %>">
+                <button type="submit" class="btn btn-primary add-to-cart-btn" <%= product.productQuantity <= 0 ? 'disabled' : '' %>>
+                  <span class="btn-icon">🛒</span> 
+                  <%= product.productQuantity > 0 ? 'Add To Cart' : 'Out of Stock' %>
+                </button>
+              </form>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+    <%- include("../includes/footer.ejs") %>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../includes/metadata.ejs") %>
+    <link rel="stylesheet" href="/css/cart.css" />
+  </head>
+  <body>
+    <%- include("../includes/header.ejs") %>
+
+    <div class="cart-header">
+      <div class="container">
+        <h1 class="cart-header__title">Your Shopping Cart</h1>
+        <p class="cart-header__subtitle">Review your items and checkout</p>
+      </div>
+    </div>
+
+    <main class="content-wrapper">
+      <div class="container">
+        <% if (products && products.length > 0) { %>
+          <div class="cart-content">
+            <div class="cart-items">
+              <% products.forEach(p => { %>
+                <div class="cart-item">
+                  <div class="cart-item__image">
+                    <% if(p.productData.productImage) { %>
+                      <img src="<%= p.productData.productImage %>" alt="<%= p.productData.productName %>" />
+                    <% } else { %>
+                      <div class="placeholder-img">📱</div>
+                    <% } %>
+                  </div>
+                  <div class="cart-item__details">
+                    <h3 class="cart-item__name"><%= p.productData.productName %></h3>
+                    <p class="cart-item__price">$<%= p.productData.productPrice %></p>
+                  </div>
+                  <div class="cart-item__actions">
+                    <div class="quantity-controls">
+                      <button class="btn btn-secondary qty-btn" onclick="alert('This functionality will be worked on later!')">-</button>
+                      <span class="qty-value"><%= p.qty %></span>
+                      <button class="btn btn-secondary qty-btn" onclick="alert('This functionality will be worked on later!')">+</button>
+                    </div>
+                    <form action="/delete-from-cart" method="POST">
+                      <button class="btn btn-danger delete-btn">Delete</button>
+                      <input type="hidden" name="productId" value="<%= p.productData.productId %>">
+                    </form>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+            
+            <div class="cart-summary">
+              <h2 class="cart-summary__title">Order Summary</h2>
+              <div class="cart-summary__row">
+                <span>Total Items:</span>
+                <span><%= products.reduce((acc, p) => acc + p.qty, 0) %></span>
+              </div>
+              <div class="cart-summary__row cart-summary__total">
+                <span>Total Price:</span>
+                <span>$<%= totalPrice %></span>
+              </div>
+              <button class="btn btn-primary checkout-btn" onclick="alert('This functionality will be worked on later!')">Proceed to Checkout</button>
+            </div>
+          </div>
+        <% } else { %>
+          <div class="empty-state">
+            <div class="empty-state__icon">🛒</div>
+            <h2 class="empty-state__title">Your Cart is Empty</h2>
+            <p>Looks like you haven't added any items to your cart yet.</p>
+            <a href="/" class="btn btn-primary mt-4">Start Shopping</a>
+          </div>
+        <% } %>
+      </div>
+    </main>
+    <%- include("../includes/footer.ejs") %>
+  </body>
+</html>
