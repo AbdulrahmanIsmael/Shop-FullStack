@@ -1,7 +1,7 @@
 {
-  "name": "shop-backend",
+  "name": "shop-fullstack",
   "version": "1.0.0",
-  "description": "Backend Application for an Online Shop built with Node.js and Express",
+  "description": "full-stack (backend-focused) Application for an Online Shop built with Node.js and Express",
   "license": "ISC",
   "author": "Abdulrahman Ismael",
   "type": "commonjs",
