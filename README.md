@@ -3,91 +3,128 @@
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![EJS](https://img.shields.io/badge/EJS-B4CA65?style=for-the-badge&logo=ejs&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
 
-A full-stack, backend-focused application for an online shop built using Node.js, Express, and EJS. The project follows the **MVC (Model-View-Controller)** architecture to maintain clean, scalable, and manageable code.
-
-Currently, the application uses a file-based data system (JSON) for storage, with plans to integrate a relational or NoSQL database in the future.
+A backend-focused online shop built with Node.js, Express, EJS, and Sequelize.
+The application uses a MySQL database connection and follows the **MVC (Model-View-Controller)** pattern.
 
 ---
 
 ## ✨ Features
 
-### 🛍️ User (Shop)
-- **View Products:** Browse through all available products on the main shop page.
-- **Product Details:** View specific details for individual products.
-- **Shopping Cart:** Add products to the cart, manage quantities, and remove items.
-- **Checkout & Orders:** Place orders and view past orders.
+### 🛍️ Shop
 
-### ⚙️ Admin Panel
-- **Manage Products:** Add new products with details like name, price, description, and image URL.
-- **Edit Products:** Update details of existing products.
-- **Delete Products:** Remove products from the store permanently.
+- **Browse Products:** View all products on the main shop page.
+- **Product Details:** View detailed product pages.
+- **Shopping Cart:** Add products, update quantities, and remove items.
+- **Orders:** Place orders and view past order history.
+
+### ⚙️ Admin
+
+- **Create Products:** Add new products with title, price, description, and image URL.
+- **Edit Products:** Update existing product details.
+- **Delete Products:** Remove products from the store.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Node.js, Express.js
-- **Templating Engine:** EJS (Embedded JavaScript)
-- **Middleware:** `body-parser` (for parsing form data)
-- **Architecture:** MVC (Model, View, Controller)
-- **Storage:** File-based JSON storage (e.g., `data/products.json`, `data/cart.json`)
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **View Engine:** EJS
+- **ORM:** Sequelize
+- **Database:** MySQL
+- **Environment:** dotenv
+- **Middleware:** body-parser
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-shop-backend/
-├── controllers/    # Contains logic for handling routes (admin.js, shop.js, etc.)
-├── models/         # Defines data models and data manipulation methods (product.js, cart.js)
-├── routes/         # Defines application routes (admin, shop, products)
-├── views/          # EJS templates for the frontend UI
-├── data/           # JSON files acting as a mock database
-├── public/         # Static files (CSS, client-side JS, images)
-├── utils/          # Utility functions and helpers
+shop-fullstack/
+├── config/         # Application configuration (database, server settings)
+├── controllers/    # Route handlers and page controllers
+├── models/         # Sequelize models for database entities
+├── routes/         # Route definitions for admin, shop, and products
+├── public/         # Static assets (CSS, client-side JS)
+├── views/          # EJS templates for rendering pages
+├── data/           # Local JSON files used by some data helpers
+├── utils/          # Utility helpers and error handling
 ├── server.js       # Main application entry point
-└── package.json    # Project metadata and dependencies
+├── package.json    # Project metadata and dependencies
+└── .env            # Local environment variables (not committed)
 ```
+
+---
+
+## 🔧 Environment Variables
+
+The app requires a local or remote MySQL database and the following environment variables:
+
+```env
+PORT=3000
+DB_USER_PASSWORD=your_mysql_password
+DB_USER_NAME=your_mysql_username
+DB_NAME=your_database_name
+DB_HOST=127.0.0.1
+```
+
+Create a `.env` file in the project root before running the app.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+- [Node.js](https://nodejs.org/)
+- A running MySQL server
 
 ### Installation
 
-1. **Clone the repository** (if applicable) or download the source code:
+1. Clone the repository:
+
    ```bash
    git clone <repository-url>
-   cd shop-backend
+   cd shop-fullstack
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
+
    ```bash
    npm install
    ```
 
+3. Create a `.env` file with the required database values.
+
 ### Running the Application
 
-To start the development server with `nodemon` (which auto-restarts the server on file changes):
+Start the server:
 
 ```bash
 npm start
 ```
 
-The server will start running on `http://localhost:3000`.
+Open the app at `http://localhost:3000`.
+
+---
+
+## ⚠️ Deployment Notes
+
+This project is currently configured to use a MySQL database.
+A free Vercel deployment will need a remote MySQL service and proper environment variables set in the Vercel dashboard.
+
+If you see `Please install mysql2 package manually` in deployment logs, make sure `mysql2` is listed in `dependencies` and the deployment installs production dependencies.
 
 ---
 
 ## 🛣️ Roadmap
 
-- [ ] Integrate a real database (e.g., MySQL via Sequelize, or MongoDB via Mongoose).
-- [ ] Implement User Authentication and Authorization.
-- [ ] Add form validation and error handling enhancements.
-- [ ] Implement image uploads via Multer.
+- [ ] Improve deployment support for serverless platforms
+- [ ] Add authentication and user accounts
+- [ ] Add validation and better error handling
+- [ ] Add image upload support
 
 ---
 
