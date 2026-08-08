@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Abdulrahman Ismael",
   "type": "commonjs",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
     "body-parser": "^2.2.2",
