@@ -19,36 +19,36 @@
           <div class="products-grid">
             <% for( let product of products ) { %>
               <div class="product-card">
-                <% if(product.productImage) { %>
-                  <img src="<%=product.productImage%>" alt="<%= product.productName %> image" class="product-card__image"/>
+                <% if(product.imageUrl) { %>
+                  <img src="<%=product.imageUrl%>" alt="<%= product.title %> image" class="product-card__image"/>
                 <% } else { %>
                 <div class="product-card__image">
                   📱
                 </div>
                 <% } %>
                 <div class="product-card__content">
-                  <h3 class="product-card__name"><%= product.productName %></h3>
-                  <p class="product-card__desc"><%= product.productDesc %></p>
+                  <h3 class="product-card__name"><%= product.title %></h3>
+                  <p class="product-card__desc"><%= product.description %></p>
                   
                   <div class="product-details">
                     <div class="product-detail-row">
                       <span class="product-detail-label">Price</span>
-                      <span class="product-detail-value product-price">$<%= product.productPrice %></span>
+                      <span class="product-detail-value product-price">$<%= product.price %></span>
                     </div>
                     <div class="product-detail-row">
                       <span class="product-detail-label">In Stock</span>
                       <span class="product-quantity">
-                        <span class="badge <%= product.productQuantity > 20 ? 'in-stock' : product.productQuantity > 5 ? 'low-stock' : 'out-of-stock' %>">
-                          <span class="status-dot"></span> <%= product.productQuantity %> units
+                        <span class="badge <%= product.quantity > 20 ? 'in-stock' : product.quantity > 5 ? 'low-stock' : 'out-of-stock' %>">
+                          <span class="status-dot"></span> <%= product.quantity %> units
                         </span>
                       </span>
                     </div>
                   </div>
 
                   <div class="product-card__actions">
-                    <a href="/admin/edit-product/<%= product.productId %>?edit=true" class="product-card__edit">Edit</a>
+                    <a href="/admin/edit-product/<%= product.id %>?edit=true" class="product-card__edit">Edit</a>
                     <!-- ! Change to submit button when adding deleting admin feature -->
-                    <form action="/admin/delete-product/<%= product.productId %>" method="POST">
+                    <form action="/admin/delete-product/<%= product.id %>" method="POST">
                       <button type="submit" class="product-card__delete">Delete</button>
                     </form>
                   </div>

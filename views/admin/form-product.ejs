@@ -32,7 +32,7 @@
               class="form-input"
               placeholder="e.g., Dell Latitude 3350"
               required
-              value="<%= editing && product && product.productName ? product.productName : ''  %>"
+              value="<%= editing && product && product.title ? product.title : ''  %>"
             />
             <small class="form-help-text"
               >Enter a descriptive name for your product</small
@@ -52,7 +52,7 @@
                 placeholder="100"
                 min="0"
                 required
-                value="<%= editing && product && product.productQuantity ? product.productQuantity : ''  %>"
+                value="<%= editing && product && product.quantity ? product.quantity : ''  %>"
               />
             </div>
             <small class="form-help-text"
@@ -76,7 +76,7 @@
                 class="form-input"
                 placeholder="150.00"
                 required
-                value="<%= editing && product && product.productPrice ? product.productPrice : ''  %>"
+                value="<%= editing && product && product.price ? product.price : ''  %>"
               />
             </div>
             <small class="form-help-text"
@@ -96,11 +96,11 @@
                 id="product-image"
                 class="form-input"
                 required
-                value="<%= editing && product && product.productImage ? product.productImage : ''  %>"
+                value="<%= editing && product && product.imageUrl ? product.imageUrl : ''  %>"
               />
             </div>
-            <% if(product && product.productImage) { %>
-              <img src="<%= editing && product && product.productImage ? product.productImage : "" %>" alt="<%= editing && product && product.productName ? product.productName : "" %> image">
+            <% if(product && product.imageUrl) { %>
+              <img src="<%= editing && product && product.imageUrl ? product.imageUrl : "" %>" alt="<%= editing && product && product.title ? product.title : "" %> image">
             <% } %>
           </div>
 
@@ -115,12 +115,12 @@
                 class="form-textarea"
                 placeholder="Write some description for the product"
                 required
-              ><%= editing && product && product.productDesc ? product.productDesc : ''  %></textarea>
+              ><%= editing && product && product.description ? product.description : ''  %></textarea>
             </div>
           </div>
 
-          <% if (editing && product && product.productId) { %>
-            <input type="hidden" name="productId" value="<%= product.productId %>">
+          <% if (editing && product && product.id) { %>
+            <input type="hidden" name="productId" value="<%= product.id %>">
           <% } %>
 
           <div class="form-actions">

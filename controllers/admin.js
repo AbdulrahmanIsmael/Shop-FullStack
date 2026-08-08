@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 
+const { handleError } = require("../utils/errorHandler");
+
 // get the add product admin page
 exports.getAddProductPage = (req, res, next) => {
   res.render("admin/form-product.ejs", {
@@ -17,46 +19,70 @@ exports.getEditProductPage = (req, res, next) => {
   }
 
   const productId = +req.params.productId;
-  Product.getProductById(productId, (product) => {
-    if (!product) return res.redirect("/");
-    res.render("admin/form-product.ejs", {
-      title: "Admin - Edit Product",
-      editing: editQuery,
-      product,
-    });
-  });
+  Product.findByPk(+productId)
+    .then((product) => {
+      if (!product) return res.redirect("/");
+      res.render("admin/form-product.ejs", {
+        title: "Admin - Edit Product",
+        editing: editQuery,
+        product,
+      });
+    })
+    .catch((err) => err && handleError(res, err));
 };
 
 // Post request to edit an existing product
 exports.postEditProduct = (req, res, next) => {
-  // ! Edit the product by replacing the new one in the products array in the file json (database later) | NEEDS ADD FUNCTIONALITY IN THE MODEL
-  const updatedProduct = req.body;
-  const productInstance = new Product(
-    updatedProduct.productName,
-    updatedProduct.productQuantity,
-    updatedProduct.productPrice,
-    updatedProduct.productImage,
-    updatedProduct.productDesc,
-    +updatedProduct.productId,
-  );
-  productInstance.save();
-  res.redirect("/admin/products");
+  const {
+    productName,
+    productQuantity,
+    productPrice,
+    productImage,
+    productDesc,
+    productId,
+  } = req.body;
+
+  req.user
+    .getProducts({ where: { id: productId } })
+    .then(([product]) => {
+      product.title = productName;
+      product.quantity = productQuantity;
+      product.price = productPrice;
+      product.imageUrl = productImage;
+      product.description = productDesc;
+
+      return product.save();
+    })
+    .then(() => {
+      console.log("Updated product!");
+      res.redirect("/admin/products");
+    })
+    .catch((err) => handleError(res, err));
 };
 
 // get the products admin page
 exports.getAdminProductsPage = (req, res, next) => {
-  Product.getAllProducts((products) => {
-    res.render("admin/products.ejs", {
-      title: "Admin - Products",
-      products,
-    });
-  });
+  Product.findAll()
+    .then((products) => {
+      res.render("admin/products.ejs", {
+        title: "Admin - Products",
+        products,
+      });
+    })
+    .catch((err) => handleError(res, err));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  const productId = req.params.productId;
-  Product.delete(+productId);
-  res.redirect("/products");
+  const productId = +req.params.productId;
+  Product.findByPk(+productId)
+    .then((product) => {
+      return product.destroy();
+    })
+    .then(() => {
+      console.log("Deleted product!");
+      res.redirect("/products");
+    })
+    .catch((err) => err && handleError(res, err));
 };
 
 // add new product (POST)
@@ -69,14 +95,17 @@ exports.postProducts = (req, res, next) => {
     productDesc,
   } = req.body;
 
-  const product = new Product(
-    productName,
-    productQuantity,
-    productPrice,
-    productImage,
-    productDesc,
-  );
-  product.save();
-
-  res.redirect("/products");
+  req.user
+    .createProduct({
+      title: productName,
+      description: productDesc,
+      price: productPrice,
+      quantity: productQuantity,
+      imageUrl: productImage,
+    })
+    .then(() => {
+      console.log("Created product!");
+      res.redirect("/admin/products");
+    })
+    .catch((err) => handleError(res, err));
 };

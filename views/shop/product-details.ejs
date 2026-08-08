@@ -13,15 +13,15 @@
         <nav class="breadcrumb">
           <a href="/" class="breadcrumb__link">Home</a>
           <span class="breadcrumb__separator">/</span>
-          <span class="breadcrumb__current"><%= product.productName %></span>
+          <span class="breadcrumb__current"><%= product.title %></span>
         </nav>
 
         <article class="product-details__container">
           <div class="product-details__image-wrapper">
-            <% if(product.productImage) { %>
+            <% if(product.imageUrl) { %>
               <img
-                src="<%= product.productImage %>"
-                alt="<%= product.productName %>"
+                src="<%= product.imageUrl %>"
+                alt="<%= product.title %>"
                 class="product-details__image"
               />
             <% } else { %>
@@ -30,16 +30,16 @@
           </div>
 
           <div class="product-details__info">
-            <h1 class="product-details__name"><%= product.productName %></h1>
+            <h1 class="product-details__name"><%= product.title %></h1>
             
             <div class="product-details__meta">
               <div class="product-details__price">
-                $<%= product.productPrice %>
+                $<%= product.price %>
               </div>
               <div class="product-details__stock">
-                <% if(product.productQuantity > 0) { %>
+                <% if(product.quantity > 0) { %>
                   <span class="badge in-stock">
-                    <span class="status-dot"></span> <%= product.productQuantity %> in stock
+                    <span class="status-dot"></span> <%= product.quantity %> in stock
                   </span>
                 <% } else { %>
                   <span class="badge out-of-stock">
@@ -51,15 +51,15 @@
 
             <div class="product-details__desc-wrapper">
               <h3 class="product-details__desc-title">Description</h3>
-              <p class="product-details__desc"><%= product.productDesc %></p>
+              <p class="product-details__desc"><%= product.description %></p>
             </div>
 
             <div class="product-details__actions">
               <form action="/cart" method="POST" class="add-to-cart-form">
-                <input type="hidden" name="productId" value="<%= product.productId %>">
-                <button type="submit" class="btn btn-primary add-to-cart-btn" <%= product.productQuantity <= 0 ? 'disabled' : '' %>>
+                <input type="hidden" name="productId" value="<%= product.id %>">
+                <button type="submit" class="btn btn-primary add-to-cart-btn" <%= product.quantity <= 0 ? 'disabled' : '' %>>
                   <span class="btn-icon">🛒</span> 
-                  <%= product.productQuantity > 0 ? 'Add To Cart' : 'Out of Stock' %>
+                  <%= product.quantity > 0 ? 'Add To Cart' : 'Out of Stock' %>
                 </button>
               </form>
             </div>

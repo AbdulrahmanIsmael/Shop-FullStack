@@ -1,12 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("../includes/metadata.ejs") %>
-  </head>
-  <body>
-    <%- include("../includes/header.ejs") %>
 
-    <main class="content-wrapper">Nothing here yet</main>
-    <%- include("../includes/footer.ejs") %>
-  </body>
+<head>
+  <%- include("../includes/metadata.ejs") %>
+  <link rel="stylesheet" href="/css/orders.css" />
+</head>
+
+<body>
+  <%- include("../includes/header.ejs") %>
+
+  <div class="orders-header">
+    <div class="container">
+      <h1 class="orders-header__title">Your Orders</h1>
+      <p class="orders-header__subtitle">Review your orders and purchase your products</p>
+    </div>
+  </div>
+
+  <main class="content-wrapper">
+    <div class="container">
+      <% if (orders && orders.length > 0) { %>
+      <div class="orders-content">
+        <div class="orders-list">
+          <% orders.forEach((order, i) => { %>
+            <div class="order-card">
+              <div class="order-card__header">
+                <h2>Order #<%= order.dataValues.id || order.id %></h2>
+                <span class="order-date"><%= new Date(order.dataValues.createdAt || order.createdAt).toLocaleDateString() %></span>
+              </div>
+              <div class="order-card__items">
+                <% let orderTotal = 0; %>
+                <% order.Products.forEach(p => { %>
+                  <% 
+                    const quantity = p.orderItem ? (p.orderItem.quantity || p.orderItem.dataValues.quantity) : 1;
+                    const price = p.dataValues.price;
+                    orderTotal += quantity * price;
+                  %>
+                  <div class="order-item">
+                    <div class="order-item__image">
+                      <% if(p.dataValues.imageUrl) { %>
+                      <img src="<%= p.dataValues.imageUrl %>" alt="<%= p.dataValues.title %>" />
+                      <% } else { %>
+                      <div class="placeholder-img">📱</div>
+                      <% } %>
+                    </div>
+                    <div class="order-item__details">
+                      <h3 class="order-item__name"><%= p.dataValues.title %></h3>
+                      <p class="order-item__price">$<%= price %> x <%= quantity %></p>
+                    </div>
+                    <div class="order-item__total">
+                      <p>$<%= (price * quantity).toFixed(2) %></p>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+              <div class="order-card__footer">
+                <div class="order-card__total">
+                  <span>Order Total:</span>
+                  <span>$<%= orderTotal.toFixed(2) %></span>
+                </div>
+                <form action="/checkout" method="POST">
+                  <input type="hidden" name="orderId" value="<%= order.dataValues.id || order.id %>">
+                  <button type="submit" class="btn btn-secondary">Checkout Order</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+
+        <div class="orders-summary">
+          <h2 class="orders-summary__title">All Orders Summary</h2>
+          <div class="orders-summary__row">
+            <span>Total Orders:</span>
+            <span><%= orders.length %></span>
+          </div>
+          <% 
+            let grandTotal = 0;
+            orders.forEach(order => {
+              order.Products.forEach(p => {
+                const quantity = p.orderItem ? (p.orderItem.quantity || p.orderItem.dataValues.quantity) : 1;
+                const price = p.dataValues.price;
+                grandTotal += quantity * price;
+              });
+            });
+          %>
+          <div class="orders-summary__row orders-summary__total">
+            <span>Grand Total:</span>
+            <span>$<%= grandTotal.toFixed(2) %></span>
+          </div>
+          <form action="/checkout-all" method="POST">
+            <button type="submit" class="btn btn-primary checkout-all-btn">Checkout All Orders</button>
+          </form>
+        </div>
+      </div>
+      <% } else { %>
+      <div class="empty-state">
+        <div class="empty-state__icon">📦</div>
+        <h2 class="empty-state__title">No Orders Yet</h2>
+        <p>Looks like you haven't placed any orders yet.</p>
+        <a href="/" class="btn btn-primary mt-4">Start Shopping</a>
+      </div>
+      <% } %>
+    </div>
+  </main>
+  <%- include("../includes/footer.ejs") %>
+</body>
+
 </html>
